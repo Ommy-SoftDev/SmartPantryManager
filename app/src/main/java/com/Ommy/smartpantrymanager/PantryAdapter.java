@@ -14,10 +14,20 @@ import java.util.List;
 
 public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder> {
 
+    // Lets the screen decide what happens when a row is tapped
+    public interface OnItemClickListener {
+        void onItemClick(PantryItem item);
+    }
+
     private List<PantryItem> items;
+    private OnItemClickListener listener;
 
     public PantryAdapter(List<PantryItem> items) {
         this.items = items;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     // Replaces the list and tells the RecyclerView to redraw
@@ -65,6 +75,13 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.ViewHolder
             details += "  |  Expires: " + item.expiryDate;
         }
         holder.textDetails.setText(details);
+
+        // Tell the screen which item was tapped
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(item);
+            }
+        });
     }
 
     // Tells the RecyclerView how many rows there are

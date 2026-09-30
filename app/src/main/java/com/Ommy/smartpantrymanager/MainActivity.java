@@ -1,7 +1,9 @@
 package com.Ommy.smartpantrymanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -46,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
         recyclerPantry.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PantryAdapter(new ArrayList<>());
         recyclerPantry.setAdapter(adapter);
+
+        // Tapping a row opens the form in edit mode, sending the item's id with the Intent
+        adapter.setOnItemClickListener(item -> {
+            Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
+            intent.putExtra(AddEditActivity.EXTRA_ITEM_ID, item.id);
+            startActivity(intent);
+        });
+
+        // The Add button opens the same form with no id, so it works in add mode
+        Button buttonAdd = findViewById(R.id.buttonAdd);
+        buttonAdd.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AddEditActivity.class)));
     }
 
     // Runs every time the screen becomes visible, so the list is always up to date
