@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         Button buttonAdd = findViewById(R.id.buttonAdd);
         buttonAdd.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, AddEditActivity.class)));
+
+        // This button opens the screen that shows recipes you can cook right now
+        Button buttonSuggested = findViewById(R.id.buttonSuggested);
+        buttonSuggested.setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, SuggestedRecipesActivity.class)));
     }
 
     // Runs every time the screen becomes visible, so the list is always up to date

@@ -23,6 +23,10 @@
         </activity>
         <activity
             android:name=".AddEditActivity"
+
+            android:exported="false" />
+        <activity
+            android:name=".SuggestedRecipesActivity"
             android:exported="false" />
     </application>
 
