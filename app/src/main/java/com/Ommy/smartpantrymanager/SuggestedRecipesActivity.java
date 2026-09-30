@@ -1,9 +1,9 @@
 package com.Ommy.smartpantrymanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,9 +46,12 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
         adapter = new RecipeAdapter(new ArrayList<>());
         recyclerRecipes.setAdapter(adapter);
 
-        // TEMPORARY: shows the recipe name. We replace this with the detail screen next.
-        adapter.setOnRecipeClickListener(recipe ->
-                Toast.makeText(this, recipe.name, Toast.LENGTH_SHORT).show());
+        // Tapping a recipe opens the detail screen, sending the recipe's id with the Intent
+        adapter.setOnRecipeClickListener(recipe -> {
+            Intent intent = new Intent(SuggestedRecipesActivity.this, RecipeDetailActivity.class);
+            intent.putExtra(RecipeDetailActivity.EXTRA_RECIPE_ID, recipe.id);
+            startActivity(intent);
+        });
     }
 
     // Re-runs the matching every time this screen is shown
